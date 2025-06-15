@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Aniversario, Mi Amor!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f06, #f79);
+            /* Un gradiente de color bonito */
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+            /* Para evitar barras de desplazamiento si el contenido es pequeño */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.2);
+            /* Fondo semitransparente */
+            padding: 30px;
+            padding-top: 50px;
+            /* Aumenta el padding superior para dar espacio al contador */
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            width: 400px;
+            backdrop-filter: blur(5px);
+            /* Efecto de desenfoque detrás del contenedor */
+            -webkit-backdrop-filter: blur(5px);
+            /* Soporte para Safari */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* Borde sutil */
+            position: relative;
+            /* ¡IMPORTANTE! Para que el contador se posicione con respecto a este contenedor */
+        }
+
+        /* Estilos para el marcador de cartas */
+        .card-counter {
+            position: absolute;
+            /* Posicionamiento absoluto respecto al .container */
+            top: 15px;
+            /* 15px desde arriba del contenedor */
+            right: 15px;
+            /* 15px desde la derecha del contenedor */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Fondo semi-transparente oscuro */
+            color: #fff;
+            padding: 6px 12px;
+            /* Un poco más pequeño para caber bien */
+            border-radius: 15px;
+            /* Bordes más redondeados */
+            font-size: 1em;
+            /* Tamaño de fuente ligeramente más pequeño */
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .card-counter #current-card-number {
+            color: #ffeb3b;
+            /* Color amarillo para el número actual para que resalte */
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #ffe0b2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 25px;
+            border-radius: 10px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        .card h2 {
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #e91e63;
+        }
+
+        .card p {
+            font-size: 1.1em;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        button {
+            background-color: #ffcc80;
+            color: #a30e44;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #ffb74d;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card-counter">
+            <span id="current-card-number">0</span> / <span id="total-cards-number">0</span>
+        </div>
+
+        <h1>¡Feliz 6 Meses, Mi Amor!</h1>
+        <p class="subtitle">Pulsa el botón para revelar un mensaje especial:</p>
+
+        <div id="card-display" class="card">
+            <h2 id="card-title"></h2>
+            <p id="card-description"></p>
+        </div>
+
+        <button id="reveal-card-btn">Revelar Carta</button>
+    </div>
+
+    <script>
+        // --- Data de las cartas (convertida de Python a JavaScript) ---
+        const cartasAniversario = [
+            { "titulo": "Nuestro Primer Hola", "descripcion": "Recuerdo perfectamente el día que empezamos a hablar. Sentí una conexión especial desde el primer momento." },
+            { "titulo": "Tu Sonrisa", "descripcion": "Una de las cosas que más me gusta de ti es tu sonrisa. Siempre me alegra el día, no importa la distancia." },
+            { "titulo": "Nuestras Llamadas", "descripcion": "Cada videollamada es un tesoro. Me encanta verte, aunque sea a través de la pantalla." },
+            { "titulo": "Mi Persona Favorita", "descripcion": "De todas las personas en el mundo, tú eres mi favorita para hablar, reír y soñar." },
+            { "titulo": "Tu Voz", "descripcion": "Tu voz es como música para mí. Podría escucharte horas y horas sin cansarme." },
+            { "titulo": "Sueños Contigo", "descripcion": "Me encanta cuando me cuentas tus sueños y los sueños que tenemos juntos para el futuro." },
+            { "titulo": "Mi Apoyo Incondicional", "descripcion": "Siempre sé que puedo contar contigo, y eso significa el mundo para mí." },
+            { "titulo": "Tus Mensajes", "descripcion": "Cada vez que suena una notificación tuya, mi corazón da un salto. Son mis mensajes favoritos." },
+            { "titulo": "Momentos Mágicos", "descripcion": "Aunque estemos lejos, cada momento que compartimos se siente mágico y especial." },
+            { "titulo": "Mi Inspiración", "descripcion": "Tu forma de ser y de ver la vida me inspira a ser una mejor persona cada día." },
+            { "titulo": "Nuestras Risas", "descripcion": "Amo nuestras risas. Esas que nos dan ataques de risa incontrolables y me hacen tan feliz." },
+            { "titulo": "Mi Lugar Seguro", "descripcion": "Contigo me siento en un lugar seguro, donde puedo ser yo mismo sin miedos." },
+            { "titulo": "Tu Inteligencia", "descripcion": "Me fascina lo inteligente que eres y cómo siempre me enseñas cosas nuevas." },
+            { "titulo": "Seis Meses de Amor", "descripcion": "Ya son 6 meses de esta hermosa aventura a tu lado. ¡Feliz aniversario!" },
+            { "titulo": "Pensando en Ti", "descripcion": "Siempre estás en mis pensamientos, no importa lo que esté haciendo." },
+            { "titulo": "Nuestras Canciones", "descripcion": "Cada canción que compartimos se vuelve nuestra canción. Me encantan esos pequeños detalles." },
+            { "titulo": "Tu Confianza", "descripcion": "Gracias por confiar en mí y por permitirme ser parte de tu vida." },
+            { "titulo": "Mi Cómplice", "descripcion": "Eres mi cómplice en todas las locuras y aventuras, aunque estemos lejos." },
+            { "titulo": "Extrañándote", "descripcion": "Hay días en que te extraño tanto que siento que mi corazón te busca." },
+            { "titulo": "Nuestro Primer Viaje (Imaginario)", "descripcion": "Amo planear viajes contigo, aunque sean solo en nuestra imaginación por ahora." },
+            { "titulo": "Mi Persona Favorita para Contar Secretos", "descripcion": "Confío plenamente en ti. Eres la primera persona a la que quiero contarle todo." },
+            { "titulo": "Tu Fortaleza", "descripcion": "Admiro tu fortaleza y cómo superas cada obstáculo que se te presenta." },
+            { "titulo": "Mi Paz", "descripcion": "Cuando hablo contigo, siento una paz y una tranquilidad que no encuentro en ningún otro lugar." },
+            { "titulo": "Nuestra Conexión", "descripcion": "Tenemos una conexión especial que va más allá de la distancia y el tiempo." },
+            { "titulo": "Feliz Aniversario, Mi Amor", "descripcion": "Cada mes a tu lado es un regalo. Feliz 6 meses, mi vida. Te quiero con todo mi corazón." }
+        ];
+
+        // Declaración de variables para los elementos del DOM en un ámbito más global
+        // Esto es para que las funciones y event listeners siempre puedan referenciarlas.
+        let cardDisplay;
+        let cardTitle;
+        let cardDescription;
+        let revealCardBtn;
+        let currentCardNumberSpan;
+        let totalCardsNumberSpan;
+
+        let revealedCardIndices = [];
+        let currentCardCount = 0;
+        const totalCards = cartasAniversario.length;
+
+        // Se inicializa todo el JavaScript SOLO CUANDO el DOM está completamente cargado.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Asignación de los elementos del DOM (ahora dentro de DOMContentLoaded)
+            cardDisplay = document.getElementById('card-display');
+            cardTitle = document.getElementById('card-title');
+            cardDescription = document.getElementById('card-description');
+            revealCardBtn = document.getElementById('reveal-card-btn');
+            currentCardNumberSpan = document.getElementById('current-card-number');
+            totalCardsNumberSpan = document.getElementById('total-cards-number');
+
+            // Actualizar el total de cartas al cargar (ahora seguro que el elemento existe)
+            totalCardsNumberSpan.textContent = totalCards;
+
+            // --- Funciones para manejar las cartas ---
+
+            // Función para obtener una carta aleatoria no repetida
+            function getUniqueRandomCard() {
+                if (revealedCardIndices.length === totalCards) {
+                    // Si ya se mostraron todas las cartas, mostrar el mensaje final
+                    return {
+                        titulo: "Has visto todas las cartas mi amor",
+                        descripcion: "La contraseña es Pica pollo, dímela y habrá otra sorpresa!!!",
+                        final: true
+                    };
+                }
+
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * totalCards);
+                } while (revealedCardIndices.includes(randomIndex));
+
+                revealedCardIndices.push(randomIndex);
+                currentCardCount++;
+
+                // Almacenar en localStorage para persistir entre sesiones
+                localStorage.setItem('revealedCardIndices', JSON.stringify(revealedCardIndices));
+                localStorage.setItem('currentCardCount', currentCardCount);
+
+                return {
+                    titulo: cartasAniversario[randomIndex].titulo,
+                    descripcion: cartasAniversario[randomIndex].descripcion,
+                    final: false
+                };
+            }
+
+            // Función para mostrar la carta con animación
+            function displayCard(cardData) {
+                // Animación de salida (opacidad y movimiento)
+                cardDisplay.style.opacity = '0';
+                cardDisplay.style.transform = 'translateY(-20px)';
+
+                setTimeout(() => {
+                    // Actualizar el contenido de la carta
+                    cardTitle.textContent = cardData.titulo;
+                    cardDescription.textContent = cardData.descripcion;
+                    currentCardNumberSpan.textContent = currentCardCount;
+
+                    // Animación de entrada
+                    cardDisplay.style.opacity = '1';
+                    cardDisplay.style.transform = 'translateY(0)';
+
+                    if (cardData.final) {
+                        revealCardBtn.textContent = "Reiniciar Sorpresa";
+                        revealCardBtn.removeEventListener('click', revealNewCard);
+                        revealCardBtn.addEventListener('click', resetSurprise);
+                    } else {
+                        revealCardBtn.textContent = "Revelar Otra Carta";
+                        // Asegurarse de que no tenga el listener de reset si se vuelve a una carta normal
+                        revealCardBtn.removeEventListener('click', resetSurprise);
+                        revealCardBtn.addEventListener('click', revealNewCard);
+                    }
+                }, 300);
+            }
+
+            // Función para reiniciar la sorpresa (limpiar localStorage y estado)
+            function resetSurprise() {
+                revealedCardIndices = [];
+                currentCardCount = 0;
+                localStorage.removeItem('revealedCardIndices');
+                localStorage.removeItem('currentCardCount');
+                
+                currentCardNumberSpan.textContent = 0;
+                cardTitle.textContent = "Pulsa el botón para revelar un mensaje especial:";
+                cardDescription.textContent = "";
+                revealCardBtn.textContent = "Revelar Carta";
+
+                revealCardBtn.removeEventListener('click', resetSurprise);
+                revealCardBtn.addEventListener('click', revealNewCard);
+
+                cardDisplay.style.opacity = '1';
+                cardDisplay.style.transform = 'translateY(0)';
+            }
+
+            // Función principal al hacer click en el botón "Revelar Carta"
+            function revealNewCard() {
+                const card = getUniqueRandomCard();
+                displayCard(card);
+            }
+
+            // --- Lógica de inicialización al cargar la página ---
+            // Intentar cargar el estado desde localStorage al inicio
+            const storedIndices = localStorage.getItem('revealedCardIndices');
+            const storedCount = localStorage.getItem('currentCardCount');
+
+            if (storedIndices && storedCount) {
+                revealedCardIndices = JSON.parse(storedIndices);
+                currentCardCount = parseInt(storedCount, 10);
+                
+                if (currentCardCount === totalCards) {
+                    displayCard({
+                        titulo: "Has visto todas las cartas mi amor",
+                        descripcion: "La contraseña es Pica pollo, dímela y habrá otra sorpresa!!!",
+                        final: true
+                    });
+                } else {
+                    currentCardNumberSpan.textContent = currentCardCount;
+                    cardTitle.textContent = "Pulsa el botón para revelar un mensaje especial:";
+                    cardDescription.textContent = `¡Quedan ${totalCards - currentCardCount} mensajes por descubrir!`;
+                    revealCardBtn.textContent = "Revelar Otra Carta";
+                }
+            } else {
+                currentCardNumberSpan.textContent = 0;
+                cardTitle.textContent = "Pulsa el botón para revelar un mensaje especial:";
+                cardDescription.textContent = "";
+            }
+
+            // Asignar el evento inicial al botón
+            revealCardBtn.addEventListener('click', revealNewCard);
+        });
+    </script>
+</body>
+
+</html>
