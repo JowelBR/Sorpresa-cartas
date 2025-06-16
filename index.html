@@ -3,326 +3,623 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Feliz Aniversario, Mi Amor!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Sorpresa Especial</title>
+    <title>¡Tu Sorpresa Mensual!</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #f06, #f79);
-            /* Un gradiente de color bonito */
-            color: #fff;
-            text-align: center;
-            overflow: hidden;
-            /* Para evitar barras de desplazamiento si el contenido es pequeño */
-        }
+        /* static/surprise_styles.css */
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.2);
-            /* Fondo semitransparente */
-            padding: 30px;
-            padding-top: 50px;
-            /* Aumenta el padding superior para dar espacio al contador */
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            max-width: 90%;
-            width: 400px;
-            backdrop-filter: blur(5px);
-            /* Efecto de desenfoque detrás del contenedor */
-            -webkit-backdrop-filter: blur(5px);
-            /* Soporte para Safari */
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            /* Borde sutil */
-            position: relative;
-            /* ¡IMPORTANTE! Para que el contador se posicione con respecto a este contenedor */
-        }
+/* Importa las fuentes de Google Fonts al principio */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
-        /* Estilos para el marcador de cartas */
-        .card-counter {
-            position: absolute;
-            /* Posicionamiento absoluto respecto al .container */
-            top: 15px;
-            /* 15px desde arriba del contenedor */
-            right: 15px;
-            /* 15px desde la derecha del contenedor */
-            background-color: rgba(0, 0, 0, 0.4);
-            /* Fondo semi-transparente oscuro */
-            color: #fff;
-            padding: 6px 12px;
-            /* Un poco más pequeño para caber bien */
-            border-radius: 15px;
-            /* Bordes más redondeados */
-            font-size: 1em;
-            /* Tamaño de fuente ligeramente más pequeño */
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-        }
+/* ---------------------------------------------------- */
+/* Estilos Generales y del Body */
+/* ---------------------------------------------------- */
+body {
+    background: linear-gradient(135deg, #FFD1DC, #FFABAB, #FFEBCD); /* Rosa Pastel, Rojo Suave, Beige Rosado */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Padding general para que no se pegue a los bordes de la pantalla */
+    box-sizing: border-box;
+    color: #333;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    overflow-x: hidden; /* Evita el scroll horizontal en caso de desbordamiento */
+}
 
-        .card-counter #current-card-number {
-            color: #ffeb3b;
-            /* Color amarillo para el número actual para que resalte */
-        }
+/* ---------------------------------------------------- */
+/* Estilos del Encabezado (h2 y p) */
+/* ---------------------------------------------------- */
+.surprise-header {
+    margin-bottom: 30px;
+    padding: 0 15px; /* Pequeño padding para móviles */
+}
 
-        h1 {
-            font-size: 2.2em;
-            margin-bottom: 10px;
-            color: #ffe0b2;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
+.surprise-header h2 {
+    font-size: 2.8em;
+    font-family: 'Pacifico', cursive;
+    color: #E91E63;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    line-height: 1.2; /* Asegura un buen espaciado de línea en títulos largos */
+}
 
-        .subtitle {
-            font-size: 1.1em;
-            margin-bottom: 25px;
-            opacity: 0.9;
-        }
+.surprise-header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+    font-family: 'Quicksand', sans-serif;
+    color: #6A0527;
+    max-width: 800px; /* Limita el ancho para que el texto no sea demasiado largo en pantallas grandes */
+    margin: 0 auto; /* Centra el párrafo */
+}
 
-        .card {
-            background-color: rgba(255, 255, 255, 0.95);
-            color: #333;
-            padding: 25px;
-            border-radius: 10px;
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        }
+/* ---------------------------------------------------- */
+/* Contenedor del Carrusel de Meses */
+/* ---------------------------------------------------- */
+.month-carousel-container {
+    position: relative;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 650px; /* Limita el ancho máximo en pantallas grandes */
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    min-height: 400px; /* Altura mínima para que siempre se vea el contenedor */
+    /* Añadido para debugging: border: 1px solid blue; */
+}
 
-        .card h2 {
-            font-size: 1.8em;
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: #e91e63;
-        }
+/* ---------------------------------------------------- */
+/* Botones de Navegación */
+/* ---------------------------------------------------- */
+.nav-button {
+    background-color: rgba(255, 200, 220, 0.9);
+    color: #A30E44;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 2em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+    position: absolute; /* Posicionado absolutamente con respecto a .month-carousel-container */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
 
-        .card p {
-            font-size: 1.1em;
-            line-height: 1.5;
-            margin-bottom: 0;
-        }
+.prev-button {
+    left: -25px; /* Sale la mitad del botón del contenedor */
+}
 
-        button {
-            background-color: #ffcc80;
-            color: #a30e44;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+.next-button {
+    right: -25px; /* Sale la mitad del botón del contenedor */
+}
 
-        button:hover {
-            background-color: #ffb74d;
-            transform: translateY(-2px);
-        }
+.nav-button:hover {
+    background-color: #FFC0CB;
+    transform: scale(1.1);
+    color: #880E4F;
+}
 
-        button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+.nav-button:active {
+    transform: scale(0.95);
+}
+
+.nav-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    background-color: rgba(255, 200, 220, 0.5);
+    color: #CCC;
+}
+
+/* ---------------------------------------------------- */
+/* Estilos de la Tarjeta del Mes (General) */
+/* ---------------------------------------------------- */
+.month-card-wrapper {
+    width: 100%; /* Ocupa el 100% del ancho de su contenedor (.month-carousel-container) */
+    max-width: 550px; /* Limita el ancho máximo de la tarjeta */
+    height: auto; /* Altura automática según el contenido */
+    min-height: 350px; /* Altura mínima para evitar que sea demasiado pequeña */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    text-align: center;
+    border-top: 8px solid; /* Borde superior que cambia por mes */
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    opacity: 1; /* Asegura que sea visible por defecto */
+    transform: translateX(0) scale(1); /* Reset de transformaciones */
+    box-sizing: border-box; /* Incluye padding y border en el width/height */
+    position: static; /* Asegura que no interfiera con el posicionamiento de los botones */
+    margin: 0 10px; /* Pequeño margen para que no se pegue a los botones si están dentro del contenedor */
+}
+
+.month-card-wrapper h3 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.month-card-wrapper p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 0;
+    white-space: pre-wrap; /* Mantiene saltos de línea del HTML */
+}
+
+/* ---------------------------------------------------- */
+/* Estilos Personalizados para Cada Mes */
+/* ---------------------------------------------------- */
+
+/* DICIEMBRE: NAVIDAD 🎄✨ */
+.month-card-wrapper.diciembre {
+    border-color: #C0392B;
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.95), rgba(192, 57, 43, 0.95));
+    color: #F8F8F8;
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.7),
+                0 0 25px rgba(255, 223, 0, 0.5) inset;
+    transform: scale(1.03); /* Mantener la escala inicial de la animación */
+    animation: pulseChristmas 2s infinite alternate ease-in-out;
+}
+.month-card-wrapper.diciembre h3 {
+    color: #2ECC71;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+}
+.month-card-wrapper.diciembre p {
+    color: #ECF0F1;
+}
+
+/* ENERO: AMOR CON ROSA INTENSO ❤️‍🔥 */
+.month-card-wrapper.enero {
+    border-color: #FF1493;
+    background: linear-gradient(135deg, rgba(255, 200, 230, 0.95), rgba(255, 170, 200, 0.95));
+    color: #6A0527;
+    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.6),
+                0 0 20px rgba(255, 20, 147, 0.3) inset;
+    transform: scale(1.02); /* Mantener la escala inicial de la animación */
+    animation: pulseLove 2s infinite alternate ease-in-out;
+}
+.month-card-wrapper.enero h3 {
+    color: #E91E63;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.month-card-wrapper.enero p {
+    color: #880E4F;
+}
+
+/* FEBRERO: AMOR CON ROSA ROJIZO (PASIÓN) ❤️‍🔥 */
+.month-card-wrapper.febrero {
+    border-color: #DC143C;
+    background: linear-gradient(135deg, rgba(255, 180, 190, 0.95), rgba(255, 150, 160, 0.95));
+    color: #6A0527;
+    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.6),
+                0 0 20px rgba(220, 20, 60, 0.3) inset;
+    transform: scale(1.02); /* Mantener la escala inicial de la animación */
+    animation: pulseLove 2s infinite alternate ease-in-out;
+}
+.month-card-wrapper.febrero h3 {
+    color: #C2185B;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.month-card-wrapper.febrero p {
+    color: #880E4F;
+}
+
+/* MARZO: EL MES DEL CAOS Y LA GUERRA */
+.month-card-wrapper.marzo {
+    border-color: #FF0000;
+    background-color: rgba(40, 0, 0, 0.9);
+    color: #FF7F50;
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+    
+    filter: saturate(1.1) contrast(1.1) brightness(1);
+    border-image: none;
+    border-width: 5px;
+    border-style: solid;
+    transform: scale(1); /* Mantener la escala inicial de la animación */
+    overflow: visible;
+    position: relative; /* Mantener relative si tu descripción de marzo usa elementos internos con absolute */
+}
+.month-card-wrapper.marzo p {
+    font-size: 1.09em;
+    color: #ffe2e2;
+    text-shadow: none;
+    position: static;
+    z-index: auto;
+}
+.month-card-wrapper.marzo h3 {
+    color: #FF6347;
+    position: static;
+    z-index: auto;
+}
+
+/* ABRIL: EL MES AZUL 💙 */
+.month-card-wrapper.abril {
+    border-color: #4682B4;
+    background: linear-gradient(135deg, rgba(173, 216, 230, 0.95), rgba(135, 206, 250, 0.95));
+    color: #003366;
+    box-shadow: 0 10px 30px rgba(70, 130, 180, 0.6),
+                0 0 20px rgba(70, 130, 180, 0.3) inset;
+    transform: scale(1.01); /* Mantener la escala inicial de la animación */
+    /* No hay animación aquí */
+}
+.month-card-wrapper.abril h3 {
+    color: #1E90FF;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.month-card-wrapper.abril p {
+    color: #005691;
+}
+
+/* MAYO: EL MES DEL AMOR ❤️ */
+.month-card-wrapper.mayo {
+    border-color: #FF69B4;
+    background: linear-gradient(135deg, rgba(255, 230, 240, 0.95), rgba(255, 200, 220, 0.95));
+    color: #6A0527;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.6),
+                0 0 20px rgba(255, 105, 180, 0.3) inset;
+    transform: scale(1.02); /* Mantener la escala inicial de la animación */
+    animation: pulseLove 2s infinite alternate ease-in-out;
+}
+.month-card-wrapper.mayo h3 {
+    color: #E91E63;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.month-card-wrapper.mayo p {
+    font-size: 1.1em;
+    color: #880E4F;
+}
+.month-card-wrapper.junio { border-color: #e91e63; } /* Solo borde, el resto hereda de .month-card-wrapper */
+/* ... Puedes añadir más meses aquí siguiendo el mismo patrón ... */
+
+
+/* ---------------------------------------------------- */
+/* Definiciones de Animaciones */
+/* ---------------------------------------------------- */
+@keyframes pulseLove {
+    0% { transform: scale(1.02); box-shadow: 0 10px 30px rgba(255, 105, 180, 0.6); }
+    50% { transform: scale(1.03); box-shadow: 0 12px 35px rgba(255, 105, 180, 0.8); }
+    100% { transform: scale(1.02); box-shadow: 0 10px 30px rgba(255, 105, 180, 0.6); }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-4px) rotate(0.8deg); }
+  50% { transform: translateX(4px) rotate(-0.8deg); }
+  75% { transform: translateX(-3px) rotate(0.5deg); }
+  100% { transform: translateX(3px) rotate(-0.5deg); }
+}
+
+@keyframes pulseChristmas {
+    0% { transform: scale(1.03); box-shadow: 0 10px 30px rgba(231, 76, 60, 0.7); }
+    50% { transform: scale(1.04); box-shadow: 0 12px 35px rgba(231, 76, 60, 0.9); }
+    100% { transform: scale(1.03); box-shadow: 0 10px 30px rgba(231, 76, 60, 0.7); }
+}
+
+
+/* ---------------------------------------------------- */
+/* MEDIA QUERIES PARA RESPONSIVIDAD (MÓVILES) */
+/* ---------------------------------------------------- */
+
+/* Estilos para pantallas pequeñas (hasta 768px de ancho, típico para tabletas en vertical y todos los móviles) */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Menos padding en pantallas pequeñas */
+    }
+
+    .surprise-header h2 {
+        font-size: 2.2em; /* Reducir tamaño del título principal */
+    }
+
+    .surprise-header p {
+        font-size: 1em; /* Reducir tamaño del párrafo principal */
+    }
+
+    .month-carousel-container {
+        padding: 15px; /* Menos padding dentro del contenedor del carrusel */
+        max-width: 95%; /* Usar casi todo el ancho disponible */
+        min-height: 300px; /* Ajustar altura mínima para móviles */
+    }
+
+    /* Ajuste de los botones para móviles */
+    .nav-button {
+        width: 40px; /* Reducir tamaño del botón */
+        height: 40px;
+        font-size: 1.8em; /* Reducir tamaño de la flecha */
+        /* Posicionamiento más pegado al contenedor en móviles */
+        left: -15px; /* Ajustar posición para que no se salgan demasiado */
+        right: -15px; /* Ajustar posición */
+    }
+    /* En pantallas muy pequeñas, quizás quieras que los botones estén DENTRO del contenedor
+       o incluso encima/debajo. Para ahora, los mantendremos a los lados pero más pegados. */
+
+
+    /* Ajuste de la tarjeta del mes para móviles */
+    .month-card-wrapper {
+        padding: 20px; /* Reducir padding de la tarjeta */
+        max-width: 100%; /* Asegura que ocupe todo el ancho disponible en el contenedor */
+        min-height: 280px; /* Altura mínima para que no se achique demasiado */
+        border-width: 4px; /* Reducir el grosor del borde superior */
+    }
+
+    .month-card-wrapper h3 {
+        font-size: 1.8em; /* Reducir tamaño del título del mes */
+        margin-bottom: 10px;
+    }
+
+    .month-card-wrapper p {
+        font-size: 0.95em; /* Reducir tamaño del texto de la descripción */
+    }
+}
+
+/* Estilos para pantallas muy pequeñas (ej. iPhone SE, ancho < 480px) */
+@media (max-width: 480px) {
+    .surprise-header h2 {
+        font-size: 2em; /* Más reducción */
+    }
+
+    .surprise-header p {
+        font-size: 0.9em; /* Más reducción */
+    }
+
+    .nav-button {
+        width: 35px; /* Más reducción del botón */
+        height: 35px;
+        font-size: 1.5em; /* Más reducción de la flecha */
+        left: -10px; /* Aún más pegados */
+        right: -10px;
+    }
+
+    .month-card-wrapper {
+        padding: 15px; /* Más reducción del padding de la tarjeta */
+        min-height: 250px; /* Altura mínima para pantallas muy pequeñas */
+    }
+
+    .month-card-wrapper h3 {
+        font-size: 1.6em; /* Más reducción */
+    }
+
+    .month-card-wrapper p {
+        font-size: 0.85em; /* Más reducción */
+    }
+}
+
+/* ---------------------------------------------------- */
+/* Fin de las Media Queries */
+/* ---------------------------------------------------- */
     </style>
-
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="card-counter">
-            <span id="current-card-number">0</span> / <span id="total-cards-number">0</span>
+    <div class="surprise-header">
+        <h2>¡Nuestro Viaje Mes a Mes!</h2>
+        <p>Aquí te presento un resumen de los momentos, emociones y aprendizajes que vivimos juntos en cada mes de
+            nuestra historia.</p>
+    </div>
+
+    <div class="month-carousel-container">
+        <button id="prev-month-btn" class="nav-button prev-button">&#9664;</button>
+        <div id="month-card-display" class="month-card-wrapper">
+            <h3 id="month-title"></h3>
+            <p id="month-description"></p>
         </div>
 
-        <h1>¡Feliz 6 Meses, Mi Amor!</h1>
-        <p class="subtitle">Pulsa el botón para revelar un mensaje especial:</p>
-
-        <div id="card-display" class="card">
-            <h2 id="card-title"></h2>
-            <p id="card-description"></p>
-        </div>
-
-        <button id="reveal-card-btn">Revelar Carta</button>
+        <button id="next-month-btn" class="nav-button next-button">&#9654;</button>
     </div>
 
     <script>
-        // --- Data de las cartas (convertida de Python a JavaScript) ---
-        const cartasAniversario = [
-            { "titulo": "Nuestro Primer Hola", "descripcion": "Recuerdo perfectamente el día que empezamos a hablar. Sentí una conexión especial desde el primer momento." },
-            { "titulo": "Tu Sonrisa", "descripcion": "Una de las cosas que más me gusta de ti es tu sonrisa. Siempre me alegra el día, no importa la distancia." },
-            { "titulo": "Nuestras Llamadas", "descripcion": "Cada videollamada es un tesoro. Me encanta verte, aunque sea a través de la pantalla." },
-            { "titulo": "Mi Persona Favorita", "descripcion": "De todas las personas en el mundo, tú eres mi favorita para hablar, reír y soñar." },
-            { "titulo": "Tu Voz", "descripcion": "Tu voz es como música para mí. Podría escucharte horas y horas sin cansarme." },
-            { "titulo": "Sueños Contigo", "descripcion": "Me encanta cuando me cuentas tus sueños y los sueños que tenemos juntos para el futuro." },
-            { "titulo": "Mi Apoyo Incondicional", "descripcion": "Siempre sé que puedo contar contigo, y eso significa el mundo para mí." },
-            { "titulo": "Tus Mensajes", "descripcion": "Cada vez que suena una notificación tuya, mi corazón da un salto. Son mis mensajes favoritos." },
-            { "titulo": "Momentos Mágicos", "descripcion": "Aunque estemos lejos, cada momento que compartimos se siente mágico y especial." },
-            { "titulo": "Mi Inspiración", "descripcion": "Tu forma de ser y de ver la vida me inspira a ser una mejor persona cada día." },
-            { "titulo": "Nuestras Risas", "descripcion": "Amo nuestras risas. Esas que nos dan ataques de risa incontrolables y me hacen tan feliz." },
-            { "titulo": "Mi Lugar Seguro", "descripcion": "Contigo me siento en un lugar seguro, donde puedo ser yo mismo sin miedos." },
-            { "titulo": "Tu Inteligencia", "descripcion": "Me fascina lo inteligente que eres y cómo siempre me enseñas cosas nuevas." },
-            { "titulo": "Seis Meses de Amor", "descripcion": "Ya son 6 meses de esta hermosa aventura a tu lado. ¡Feliz aniversario!" },
-            { "titulo": "Pensando en Ti", "descripcion": "Siempre estás en mis pensamientos, no importa lo que esté haciendo." },
-            { "titulo": "Nuestras Canciones", "descripcion": "Cada canción que compartimos se vuelve nuestra canción. Me encantan esos pequeños detalles." },
-            { "titulo": "Tu Confianza", "descripcion": "Gracias por confiar en mí y por permitirme ser parte de tu vida." },
-            { "titulo": "Mi Cómplice", "descripcion": "Eres mi cómplice en todas las locuras y aventuras, aunque estemos lejos." },
-            { "titulo": "Extrañándote", "descripcion": "Hay días en que te extraño tanto que siento que mi corazón te busca." },
-            { "titulo": "Nuestro Primer Viaje (Imaginario)", "descripcion": "Amo planear viajes contigo, aunque sean solo en nuestra imaginación por ahora." },
-            { "titulo": "Mi Persona Favorita para Contar Secretos", "descripcion": "Confío plenamente en ti. Eres la primera persona a la que quiero contarle todo." },
-            { "titulo": "Tu Fortaleza", "descripcion": "Admiro tu fortaleza y cómo superas cada obstáculo que se te presenta." },
-            { "titulo": "Mi Paz", "descripcion": "Cuando hablo contigo, siento una paz y una tranquilidad que no encuentro en ningún otro lugar." },
-            { "titulo": "Nuestra Conexión", "descripcion": "Tenemos una conexión especial que va más allá de la distancia y el tiempo." },
-            { "titulo": "Feliz Aniversario, Mi Amor", "descripcion": "Cada mes a tu lado es un regalo. Feliz 6 meses, mi vida. Te quiero con todo mi corazón." }
+        // --- DATA DE LOS MESES (Originalmente del Python, ahora en JavaScript) ---
+        const sorpresasMensualesData = [
+            {
+                "mes": "Introducción", "descripcion": `Waos… ¡6 benditos meses! 💫 Seis meses de amor, de guerras, de reconciliaciones, de besos robados y abrazos infinitos 🤍. 
+            Seis meses cayendo y levantándonos juntos, llorando, riendo, celebrando hasta lo más mínimo... incluso bailando sin ritmo, 
+            pero con el corazón.
+
+            Aunque en verdad llevamos 7 meses conociéndonos, aprendiendo uno del otro, creciendo, cambiando… amándonos cada vez más 💞.
+            Y sé que este texto no está perfectamente escrito, mi vida, pero es que tengo una hambre que me muero 🤤—a las 9:35 a.m. aún no 
+            desayuno—pero ni el hambre me quita las ganas de decirte cuánto te amo 💘.
+
+            Nada me hace más feliz que estar bien contigo, amor mío. Aunque a veces pongas huevos del tamaño de una casa 😒🍳, 
+            te sigo amando como aquel primer día en que me robaste la sonrisa... y el alma. Y sí, aún sigo firme con mi promesa de cuidarte, 
+            protegerte y amarte, cada día de mi vida. 💍💖` },
+
+            {
+                "mes": "Ayuda", "descripcion": `Ahora viene la parte dolorosamente bonita donde (yo solito) me rompo los dedos escribiendo sobre estos seis meses...
+            Y como tú ya sabes cómo soy yo, voy a escribirlo de forma larga. Porque cada palabra que te dedico, me sale del alma.` },
+
+            {
+                "mes": "Diciembre", "descripcion": `Tal vez te preguntes: ¿por qué empiezo por diciembre si aún no éramos novios?
+            Y la respuesta es simple: porque fue el mes en el que conocí a la persona más increíble que he tenido el privilegio de amar. 🥺💗
+
+            Ese día… tú, jugando en medio de la cancha junto a Nahiony, y yo con Jonathan… unos completos idiotas pero con corazones enormes 😂. 
+            Bastó que nuestras miradas se cruzaran una sola vez para que algo en mí despertara. Y sí, tal vez no lo sabías en ese momento, 
+            pero desde ahí… yo ya te estaba amando en silencio.
+
+            Tu sonrisa. Tu voz. Tu forma de ser. Todo.
+            Y aunque era súper extrovertido, no sé cómo me atreví a hablar contigo. Me acerqué con mi amigo, les pedimos jugar… y jugamos. Y tú reías.
+            Y yo no podía dejar de mirarte. 😍
+
+            Después pasamos nuestros contactos. Y fue ahí donde la historia comenzó de verdad…
+            Comenzamos a hablar muchísimo. Me contaste de tu vida, de tu ex, de cómo no te valoraba. De cómo, siendo una princesa, él nunca te puso 
+            la corona que merecías. 👑 Y ahora… míranos. Soy yo quien sostiene tu corona con orgullo.
+            Y no hay nada que me haga sentir más afortunado.` },
+
+            {
+                "mes": "Enero", "descripcion": `El 2 de enero, tu corazón dijo “sí”. Ese día empezó nuestra historia como novios. 
+            Ese día nació lo que hoy me mantiene vivo.
+
+            El 16 de enero, tu cumpleaños. Mi reina hermosa cumplía sus 14 añitos 🌸. Te regalé un anillo, 
+            símbolo de la promesa que aún mantengo firme cada día: amarte, cuidarte, protegerte y no soltarte. Nunca. 💍💌
+            Aunque no estemos siempre cerca, te llevo en cada paso que doy.` },
+
+            {
+                "mes": "Febrero", "descripcion": `Febrero fue un mes lleno de fuego y juegos, ¿te acuerdas? 🔥
+            Fue uno de los meses más traviesos que tuvimos tú y yo. Nos veíamos con esa necesidad urgente de tocarnos, de buscarnos, 
+            de probar lo prohibido. Cada mirada, cada roce… era gasolina para el corazón. En el gazebo casi nos descubren 😳 y tú, tan astuta 
+            como siempre, sacaste una excusa que no tenía ni pies ni cabeza 😅.
+            Yo por dentro solo rezaba: “Padre Nuestro, líbranos del fuetazo” 😂🙏.
+
+            Pero luego llegó el 14 de febrero… y ahí fue donde se me llenó el pecho de amor por ti.
+            Aunque no tenía mucho, quise darte el mundo con mis manos vacías.
+            Te di chocolates 🍫, dulces 🍭, fresas con crema (aunque se derritieron 😭🍓), un oso, un collar, un abrigo que casi nunca usas 🧥😂…
+            Y aunque no fue perfecto, fue real.
+            Fue mío. Fue nuestro.
+            Te amo, Abby, y ese día quise que lo sintieras en cada detalle.` },
+
+            {
+                "mes": "Marzo", "descripcion": `Ay, marzo… Cómo duele escribir sobre marzo. Fue el mes donde sentimos que todo lo construido podía venirse abajo.
+            Comenzamos a distanciarnos, tú te sentías sola, yo sentía que ya no me mirabas igual. Y entonces me dijiste algo que me dejó sin aire:
+            Que hablabas más con tu ex que conmigo… Mi corazón se hizo trizas en silencio. 💔🥀
+            No te grité. No te culpé. Solo lloré. Lloré porque sentí que te perdía, y sin ti… todo se sentía vacío.
+
+            Busqué ayuda, traté de arreglar las cosas. Te confesé errores del pasado, cosas que aún me duelen recordar.
+            Te vi herida, te vi rota. Y me rompí contigo. Casi terminamos, casi nos soltamos...
+            Pero no lo hicimos. Nos abrazamos con las palabras. Y juntos… sobrevivimos.
+            Marzo fue nuestra guerra. Y tú, mi amor, fuiste mi paz. 🕊️` },
+
+            {
+                "mes": "Abril", "descripcion": `Después del desastre... llegó el silencio.
+            Abril fue como una brisa suave después de una tormenta devastadora.
+            No hubo fuegos artificiales, ni grandes declaraciones.
+            Solo hubo... intenciones reales de sanar.
+
+            Nos enfocamos en curarnos. En entendernos.
+            En no soltarnos a pesar de las heridas.
+            Y créeme, me sentí tan orgulloso de ti, Abby.
+            Porque tú decidiste quedarte.
+            Tú apostaste por nosotros.
+            Y esa fue una de las cosas más valientes que alguien ha hecho por mí.
+            Gracias por luchar cuando yo ya no podía.
+            Gracias por tomarte el tiempo de entender que los errores no definen a una persona...
+            Que el amor verdadero se construye sobre las ruinas, no sobre la perfección.` },
+
+            {
+                "mes": "Mayo", "descripcion": `Este fue mi mes, pero tú lo hiciste tuyo.
+            Mi cumpleaños jamás había sido especial… hasta que tú apareciste.
+            Fue la primera vez que lo pasé con una novia… una novia como tú. 💖
+            Y aunque tuvimos roces, aunque discutimos…
+            Ese día me besaste como si el mundo se estuviera acabando.
+            Y ese beso del 19… no lo voy a olvidar jamás. 💋✨
+
+            Gracias por hacerme sentir importante.
+            Gracias por ser mi regalo, por hacerme sonreír cuando más lo necesitaba.
+            Ese día entendí que el verdadero amor no se celebra una vez al año… se celebra todos los días, contigo.` },
+
+            {
+                "mes": "Junio", "descripcion": `Junio no tuvo fuegos artificiales.
+            No hubo grandes eventos.
+            Pero hubo algo mucho más importante…
+            Nos tuvimos.
+            Tú y yo, amándonos desde lo más profundo.
+            Abrazándonos con actos.
+            Perdonándonos con los ojos.
+            Resistiendo en el silencio.
+            Junio fue ese mes donde el amor dejó de hablar tanto y comenzó a demostrarse. 🫶
+
+            Aunque no todo ha sido perfecto, aunque hemos tenido más de un tropiezo, más de una duda, lo que hemos construido juntos me da esperanza.
+            Mi amor, mis acciones son mis palabras.
+            Y mis palabras… son promesas.
+
+            Promesas de que estaré contigo.
+            De que no me rendiré.
+            De que te amaré incluso en los días donde tú ya no puedas amarte a ti misma.` }
         ];
 
         // Declaración de variables para los elementos del DOM en un ámbito más global
-        // Esto es para que las funciones y event listeners siempre puedan referenciarlas.
-        let cardDisplay;
-        let cardTitle;
-        let cardDescription;
-        let revealCardBtn;
-        let currentCardNumberSpan;
-        let totalCardsNumberSpan;
+        let monthCardDisplay;
+        let monthTitle;
+        let monthDescription;
+        let prevMonthBtn;
+        let nextMonthBtn;
 
-        let revealedCardIndices = [];
-        let currentCardCount = 0;
-        const totalCards = cartasAniversario.length;
+        let currentMonthIndex = 0; // Índice del mes que se está mostrando actualmente
 
-        // Se inicializa todo el JavaScript SOLO CUANDO el DOM está completamente cargado.
+        // La inicialización se realiza SOLO CUANDO el DOM está completamente cargado.
         document.addEventListener('DOMContentLoaded', () => {
-            // Asignación de los elementos del DOM (ahora dentro de DOMContentLoaded)
-            cardDisplay = document.getElementById('card-display');
-            cardTitle = document.getElementById('card-title');
-            cardDescription = document.getElementById('card-description');
-            revealCardBtn = document.getElementById('reveal-card-btn');
-            currentCardNumberSpan = document.getElementById('current-card-number');
-            totalCardsNumberSpan = document.getElementById('total-cards-number');
+            // Obtener los elementos del DOM (se asegura que existan)
+            monthCardDisplay = document.getElementById('month-card-display');
+            monthTitle = document.getElementById('month-title');
+            monthDescription = document.getElementById('month-description');
+            prevMonthBtn = document.getElementById('prev-month-btn');
+            nextMonthBtn = document.getElementById('next-month-btn');
 
-            // Actualizar el total de cartas al cargar (ahora seguro que el elemento existe)
-            totalCardsNumberSpan.textContent = totalCards;
+            // Función para mostrar el mes actual
+            function displayMonth(index, direction = 0) { // direction: 0 = no anim, -1 = prev, 1 = next
+                if (index >= 0 && index < sorpresasMensualesData.length) {
+                    const monthData = sorpresasMensualesData[index];
 
-            // --- Funciones para manejar las cartas ---
-
-            // Función para obtener una carta aleatoria no repetida
-            function getUniqueRandomCard() {
-                if (revealedCardIndices.length === totalCards) {
-                    // Si ya se mostraron todas las cartas, mostrar el mensaje final
-                    return {
-                        titulo: "Has visto todas las cartas mi amor",
-                        descripcion: "La contraseña es Pica pollo, dímela y habrá otra sorpresa!!!",
-                        final: true
-                    };
-                }
-
-                let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * totalCards);
-                } while (revealedCardIndices.includes(randomIndex));
-
-                revealedCardIndices.push(randomIndex);
-                currentCardCount++;
-
-                // Almacenar en localStorage para persistir entre sesiones
-                localStorage.setItem('revealedCardIndices', JSON.stringify(revealedCardIndices));
-                localStorage.setItem('currentCardCount', currentCardCount);
-
-                return {
-                    titulo: cartasAniversario[randomIndex].titulo,
-                    descripcion: cartasAniversario[randomIndex].descripcion,
-                    final: false
-                };
-            }
-
-            // Función para mostrar la carta con animación
-            function displayCard(cardData) {
-                // Animación de salida (opacidad y movimiento)
-                cardDisplay.style.opacity = '0';
-                cardDisplay.style.transform = 'translateY(-20px)';
-
-                setTimeout(() => {
-                    // Actualizar el contenido de la carta
-                    cardTitle.textContent = cardData.titulo;
-                    cardDescription.textContent = cardData.descripcion;
-                    currentCardNumberSpan.textContent = currentCardCount;
-
-                    // Animación de entrada
-                    cardDisplay.style.opacity = '1';
-                    cardDisplay.style.transform = 'translateY(0)';
-
-                    if (cardData.final) {
-                        revealCardBtn.textContent = "Reiniciar Sorpresa";
-                        revealCardBtn.removeEventListener('click', revealNewCard);
-                        revealCardBtn.addEventListener('click', resetSurprise);
-                    } else {
-                        revealCardBtn.textContent = "Revelar Otra Carta";
-                        // Asegurarse de que no tenga el listener de reset si se vuelve a una carta normal
-                        revealCardBtn.removeEventListener('click', resetSurprise);
-                        revealCardBtn.addEventListener('click', revealNewCard);
+                    // Aplicar animación de salida
+                    if (direction !== 0) {
+                        monthCardDisplay.style.transform = `translateX(${direction * -100}%)`;
+                        monthCardDisplay.style.opacity = '0';
                     }
-                }, 300);
-            }
 
-            // Función para reiniciar la sorpresa (limpiar localStorage y estado)
-            function resetSurprise() {
-                revealedCardIndices = [];
-                currentCardCount = 0;
-                localStorage.removeItem('revealedCardIndices');
-                localStorage.removeItem('currentCardCount');
-                
-                currentCardNumberSpan.textContent = 0;
-                cardTitle.textContent = "Pulsa el botón para revelar un mensaje especial:";
-                cardDescription.textContent = "";
-                revealCardBtn.textContent = "Revelar Carta";
+                    setTimeout(() => {
+                        // Limpiar clases anteriores del mes y añadir la nueva
+                        monthCardDisplay.className = 'month-card-wrapper';
+                        monthCardDisplay.classList.add(monthData.mes.toLowerCase().replace(/\s/g, '-')); // 'Introducción' -> 'introduccion'
 
-                revealCardBtn.removeEventListener('click', resetSurprise);
-                revealCardBtn.addEventListener('click', revealNewCard);
+                        // Actualizar el contenido de la tarjeta
+                        monthTitle.textContent = monthData.mes;
+                        monthDescription.textContent = monthData.descripcion;
 
-                cardDisplay.style.opacity = '1';
-                cardDisplay.style.transform = 'translateY(0)';
-            }
+                        // Deshabilitar/habilitar botones de navegación
+                        prevMonthBtn.disabled = (index === 0);
+                        nextMonthBtn.disabled = (index === sorpresasMensualesData.length - 1);
 
-            // Función principal al hacer click en el botón "Revelar Carta"
-            function revealNewCard() {
-                const card = getUniqueRandomCard();
-                displayCard(card);
-            }
-
-            // --- Lógica de inicialización al cargar la página ---
-            // Intentar cargar el estado desde localStorage al inicio
-            const storedIndices = localStorage.getItem('revealedCardIndices');
-            const storedCount = localStorage.getItem('currentCardCount');
-
-            if (storedIndices && storedCount) {
-                revealedCardIndices = JSON.parse(storedIndices);
-                currentCardCount = parseInt(storedCount, 10);
-                
-                if (currentCardCount === totalCards) {
-                    displayCard({
-                        titulo: "Has visto todas las cartas mi amor",
-                        descripcion: "La contraseña es Pica pollo, dímela y habrá otra sorpresa!!!",
-                        final: true
-                    });
-                } else {
-                    currentCardNumberSpan.textContent = currentCardCount;
-                    cardTitle.textContent = "Pulsa el botón para revelar un mensaje especial:";
-                    cardDescription.textContent = `¡Quedan ${totalCards - currentCardCount} mensajes por descubrir!`;
-                    revealCardBtn.textContent = "Revelar Otra Carta";
+                        // Aplicar animación de entrada
+                        monthCardDisplay.style.transform = 'translateX(0)';
+                        monthCardDisplay.style.opacity = '1';
+                    }, direction !== 0 ? 500 : 0); // Esperar la transición si hay animación
                 }
-            } else {
-                currentCardNumberSpan.textContent = 0;
-                cardTitle.textContent = "Pulsa el botón para revelar un mensaje especial:";
-                cardDescription.textContent = "";
             }
 
-            // Asignar el evento inicial al botón
-            revealCardBtn.addEventListener('click', revealNewCard);
+            // Función para ir al mes anterior
+            function goToPrevMonth() {
+                if (currentMonthIndex > 0) {
+                    currentMonthIndex--;
+                    displayMonth(currentMonthIndex, -1);
+                }
+            }
+
+            // Función para ir al mes siguiente
+            function goToNextMonth() {
+                if (currentMonthIndex < sorpresasMensualesData.length - 1) {
+                    currentMonthIndex++;
+                    displayMonth(currentMonthIndex, 1);
+                }
+            }
+
+            // Asignar los eventos a los botones
+            prevMonthBtn.addEventListener('click', goToPrevMonth);
+            nextMonthBtn.addEventListener('click', goToNextMonth);
+
+            // Mostrar el primer mes al cargar la página
+            displayMonth(currentMonthIndex);
         });
     </script>
 </body>
