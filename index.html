@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Tu Sorpresa Mensual!</title>
     <style>
         /* static/surprise_styles.css */
@@ -16,18 +16,21 @@
         /* Estilos Generales y del Body */
         /* ---------------------------------------------------- */
         body {
-            background: linear-gradient(135deg, #FFD1DC, #FFABAB, #FFEBCD); /* Rosa Pastel, Rojo Suave, Beige Rosado */
+            background: linear-gradient(135deg, #FFD1DC, #FFABAB, #FFEBCD);
+            /* Rosa Pastel, Rojo Suave, Beige Rosado */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px; /* Padding general para que no se pegue a los bordes de la pantalla */
+            padding: 20px;
+            /* Padding general para que no se pegue a los bordes de la pantalla */
             box-sizing: border-box;
             color: #333;
             text-align: center;
             font-family: 'Quicksand', sans-serif;
-            overflow-x: hidden; /* Evita el scroll horizontal en caso de desbordamiento */
+            overflow-x: hidden;
+            /* Evita el scroll horizontal en caso de desbordamiento */
         }
 
         /* ---------------------------------------------------- */
@@ -35,7 +38,8 @@
         /* ---------------------------------------------------- */
         .surprise-header {
             margin-bottom: 30px;
-            padding: 0 15px; /* Pequeño padding para móviles */
+            padding: 0 15px;
+            /* Pequeño padding para móviles */
         }
 
         .surprise-header h2 {
@@ -43,8 +47,9 @@
             font-family: 'Pacifico', cursive;
             color: #E91E63;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            line-height: 1.2; /* Asegura un buen espaciado de línea en títulos largos */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            line-height: 1.2;
+            /* Asegura un buen espaciado de línea en títulos largos */
         }
 
         .surprise-header p {
@@ -52,8 +57,10 @@
             opacity: 0.9;
             font-family: 'Quicksand', sans-serif;
             color: #6A0527;
-            max-width: 800px; /* Limita el ancho para que el texto no sea demasiado largo en pantallas grandes */
-            margin: 0 auto; /* Centra el párrafo */
+            max-width: 800px;
+            /* Limita el ancho para que el texto no sea demasiado largo en pantallas grandes */
+            margin: 0 auto;
+            /* Centra el párrafo */
         }
 
         /* ---------------------------------------------------- */
@@ -61,8 +68,10 @@
         /* ---------------------------------------------------- */
         .month-carousel-container {
             position: relative;
-            width: 100%; /* Ocupa todo el ancho disponible */
-            max-width: 650px; /* Limita el ancho máximo en pantallas grandes */
+            width: 100%;
+            /* Ocupa todo el ancho disponible */
+            max-width: 650px;
+            /* Limita el ancho máximo en pantallas grandes */
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -73,7 +82,8 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            min-height: 400px; /* Altura mínima para que siempre se vea el contenedor */
+            min-height: 400px;
+            /* Altura mínima para que siempre se vea el contenedor */
         }
 
         /* ---------------------------------------------------- */
@@ -93,18 +103,21 @@
             align-items: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
-            position: absolute; /* Posicionado absolutamente con respecto a .month-carousel-container */
+            position: absolute;
+            /* Posicionado absolutamente con respecto a .month-carousel-container */
             top: 50%;
             transform: translateY(-50%);
             z-index: 10;
         }
 
         .prev-button {
-            left: -25px; /* Sale la mitad del botón del contenedor */
+            left: -25px;
+            /* Para pantallas grandes, se mantiene fuera */
         }
 
         .next-button {
-            right: -25px; /* Sale la mitad del botón del contenedor */
+            right: -25px;
+            /* Para pantallas grandes, se mantiene fuera */
         }
 
         .nav-button:hover {
@@ -130,26 +143,37 @@
         /* Estilos de la Tarjeta del Mes (General) */
         /* ---------------------------------------------------- */
         .month-card-wrapper {
-            width: 100%; /* Ocupa el 100% del ancho de su contenedor (.month-carousel-container) */
-            max-width: 550px; /* Limita el ancho máximo de la tarjeta */
-            height: auto; /* Altura automática según el contenido */
-            min-height: 350px; /* Altura mínima para evitar que sea demasiado pequeña */
+            width: 100%;
+            /* Ocupa el 100% del ancho de su contenedor (.month-carousel-container) */
+            max-width: 550px;
+            /* Limita el ancho máximo de la tarjeta */
+            height: auto;
+            /* Altura automática según el contenido */
+            min-height: 350px;
+            /* Altura mínima para evitar que sea demasiado pequeña */
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centra el contenido verticalmente */
-            align-items: center; /* Centra el contenido horizontalmente */
+            justify-content: center;
+            /* Centra el contenido verticalmente */
+            align-items: center;
+            /* Centra el contenido horizontalmente */
             text-align: center;
-            border-top: 8px solid; /* Borde superior que cambia por mes */
-            /* ELIMINADA LA TRANSITION DE CSS */
-            opacity: 1; /* Asegura que sea visible por defecto */
-            transform: translateX(0) scale(1); /* Reset de transformaciones, se mantendrán estáticas */
-            box-sizing: border-box; /* Incluye padding y border en el width/height */
-            position: static; /* Asegura que no interfiera con el posicionamiento de los botones */
-            margin: 0 10px; /* Pequeño margen para que no se pegue a los botones si están dentro del contenedor */
+            border-top: 8px solid;
+            /* Borde superior que cambia por mes */
+            opacity: 1;
+            /* Asegura que sea visible por defecto */
+            transform: translateX(0) scale(1);
+            /* Reset de transformaciones */
+            box-sizing: border-box;
+            /* Incluye padding y border en el width/height */
+            position: static;
+            /* Asegura que no interfiera con el posicionamiento de los botones */
+            margin: 0 10px;
+            /* Pequeño margen para que no se pegue a los botones si están dentro del contenedor */
         }
 
         .month-card-wrapper h3 {
@@ -164,11 +188,12 @@
             font-size: 1.1em;
             line-height: 1.6;
             margin: 0;
-            white-space: pre-wrap; /* Mantiene saltos de línea del HTML */
+            white-space: pre-wrap;
+            /* Mantiene saltos de línea del HTML */
         }
 
         /* ---------------------------------------------------- */
-        /* Estilos Personalizados para Cada Mes */
+        /* Estilos Personalizados para Cada Mes (sin animaciones) */
         /* ---------------------------------------------------- */
 
         /* DICIEMBRE: NAVIDAD 🎄✨ */
@@ -177,14 +202,15 @@
             background: linear-gradient(135deg, rgba(231, 76, 60, 0.95), rgba(192, 57, 43, 0.95));
             color: #F8F8F8;
             box-shadow: 0 10px 30px rgba(231, 76, 60, 0.7),
-                        0 0 25px rgba(255, 223, 0, 0.5) inset;
-            /* ELIMINADA ANIMATION: animation: pulseChristmas 2s infinite alternate ease-in-out; */
-            transform: scale(1); /* Resetear a escala 1 para quitar efectos de escala base */
+                0 0 25px rgba(255, 223, 0, 0.5) inset;
+            transform: scale(1);
         }
+
         .month-card-wrapper.diciembre h3 {
             color: #2ECC71;
-            text-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
         }
+
         .month-card-wrapper.diciembre p {
             color: #ECF0F1;
         }
@@ -195,14 +221,15 @@
             background: linear-gradient(135deg, rgba(255, 200, 230, 0.95), rgba(255, 170, 200, 0.95));
             color: #6A0527;
             box-shadow: 0 10px 30px rgba(255, 20, 147, 0.6),
-                        0 0 20px rgba(255, 20, 147, 0.3) inset;
-            /* ELIMINADA ANIMATION: animation: pulseLove 2s infinite alternate ease-in-out; */
-            transform: scale(1); /* Resetear a escala 1 para quitar efectos de escala base */
+                0 0 20px rgba(255, 20, 147, 0.3) inset;
+            transform: scale(1);
         }
+
         .month-card-wrapper.enero h3 {
             color: #E91E63;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
+
         .month-card-wrapper.enero p {
             color: #880E4F;
         }
@@ -213,14 +240,15 @@
             background: linear-gradient(135deg, rgba(255, 180, 190, 0.95), rgba(255, 150, 160, 0.95));
             color: #6A0527;
             box-shadow: 0 10px 30px rgba(220, 20, 60, 0.6),
-                        0 0 20px rgba(220, 20, 60, 0.3) inset;
-            /* ELIMINADA ANIMATION: animation: pulseLove 2s infinite alternate ease-in-out; */
-            transform: scale(1); /* Resetear a escala 1 para quitar efectos de escala base */
+                0 0 20px rgba(220, 20, 60, 0.3) inset;
+            transform: scale(1);
         }
+
         .month-card-wrapper.febrero h3 {
             color: #C2185B;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
+
         .month-card-wrapper.febrero p {
             color: #880E4F;
         }
@@ -231,15 +259,15 @@
             background-color: rgba(40, 0, 0, 0.9);
             color: #FF7F50;
             box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
-            /* ELIMINADA ANIMATION: animation: shake 0.8s cubic-bezier(.36,.07,.19,.97) infinite alternate; */
             filter: saturate(1.1) contrast(1.1) brightness(1);
             border-image: none;
             border-width: 5px;
             border-style: solid;
-            transform: scale(1); /* Asegurar escala normal */
+            transform: scale(1);
             overflow: visible;
-            position: relative; /* Mantener relative si tu descripción de marzo usa elementos internos con absolute */
+            position: relative;
         }
+
         .month-card-wrapper.marzo p {
             font-size: 1.09em;
             color: #ffe2e2;
@@ -247,6 +275,7 @@
             position: static;
             z-index: auto;
         }
+
         .month-card-wrapper.marzo h3 {
             color: #FF6347;
             position: static;
@@ -259,14 +288,15 @@
             background: linear-gradient(135deg, rgba(173, 216, 230, 0.95), rgba(135, 206, 250, 0.95));
             color: #003366;
             box-shadow: 0 10px 30px rgba(70, 130, 180, 0.6),
-                        0 0 20px rgba(70, 130, 180, 0.3) inset;
-            transform: scale(1); /* Asegurar escala normal */
-            /* No hay animación aquí */
+                0 0 20px rgba(70, 130, 180, 0.3) inset;
+            transform: scale(1);
         }
+
         .month-card-wrapper.abril h3 {
             color: #1E90FF;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
+
         .month-card-wrapper.abril p {
             color: #005691;
         }
@@ -277,28 +307,24 @@
             background: linear-gradient(135deg, rgba(255, 230, 240, 0.95), rgba(255, 200, 220, 0.95));
             color: #6A0527;
             box-shadow: 0 10px 30px rgba(255, 105, 180, 0.6),
-                        0 0 20px rgba(255, 105, 180, 0.3) inset;
-            /* ELIMINADA ANIMATION: animation: pulseLove 2s infinite alternate ease-in-out; */
-            transform: scale(1); /* Resetear a escala 1 para quitar efectos de escala base */
+                0 0 20px rgba(255, 105, 180, 0.3) inset;
+            transform: scale(1);
         }
+
         .month-card-wrapper.mayo h3 {
             color: #E91E63;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
+
         .month-card-wrapper.mayo p {
             font-size: 1.1em;
             color: #880E4F;
         }
-        .month-card-wrapper.junio { border-color: #e91e63; transform: scale(1); } /* Solo borde, el resto hereda de .month-card-wrapper */
-        /* ... Puedes añadir más meses aquí siguiendo el mismo patrón ... */
 
-
-        /* ---------------------------------------------------- */
-        /* Definiciones de Animaciones (ELIMINADAS) */
-        /* ---------------------------------------------------- */
-        /* @keyframes pulseLove { ... } */
-        /* @keyframes shake { ... } */
-        /* @keyframes pulseChristmas { ... } */
+        .month-card-wrapper.junio {
+            border-color: #e91e63;
+            transform: scale(1);
+        }
 
 
         /* ---------------------------------------------------- */
@@ -308,80 +334,117 @@
         /* Estilos para pantallas pequeñas (hasta 768px de ancho, típico para tabletas en vertical y todos los móviles) */
         @media (max-width: 768px) {
             body {
-                padding: 10px; /* Menos padding en pantallas pequeñas */
+                padding: 10px;
             }
 
             .surprise-header h2 {
-                font-size: 2.2em; /* Reducir tamaño del título principal */
+                font-size: 2.2em;
             }
 
             .surprise-header p {
-                font-size: 1em; /* Reducir tamaño del párrafo principal */
+                font-size: 1em;
             }
 
             .month-carousel-container {
-                padding: 15px; /* Menos padding dentro del contenedor del carrusel */
-                max-width: 95%; /* Usar casi todo el ancho disponible */
-                min-height: 300px; /* Ajustar altura mínima para móviles */
+                padding: 15px;
+                max-width: 95%;
+                min-height: 300px;
             }
 
-            /* Ajuste de los botones para móviles */
+            /* ************************************************* */
+            /* *** MODIFICACIÓN CLAVE PARA LOS BOTONES EN MÓVILES *** */
+            /* ************************************************* */
             .nav-button {
-                width: 40px; /* Reducir tamaño del botón */
+                width: 40px;
                 height: 40px;
-                font-size: 1.8em; /* Reducir tamaño de la flecha */
-                /* Posicionamiento más pegado al contenedor en móviles */
-                left: -15px; /* Ajustar posición para que no se salgan demasiado */
-                right: -15px; /* Ajustar posición */
+                font-size: 1.8em;
+                /* Reajusta el posicionamiento para que no se superpongan */
+                /* Los movemos ligeramente hacia adentro o a 0 de distancia del borde */
+                left: 0px;
+                /* Botón izquierdo al borde izquierdo del contenedor */
+                right: 0px;
+                /* Esto no importa para .prev-button, pero es un reset para .nav-button */
             }
+
+            .prev-button {
+                left: 0px;
+                /* Asegura que esté justo al borde izquierdo del contenedor del carrusel */
+                right: auto;
+                /* Reset para que no interfiera el 'right' genérico de .nav-button */
+            }
+
+            .next-button {
+                right: 0px;
+                /* Asegura que esté justo al borde derecho del contenedor del carrusel */
+                left: auto;
+                /* Reset para que no interfiera el 'left' genérico de .nav-button */
+            }
+
+            /* ************************************************* */
+
 
             /* Ajuste de la tarjeta del mes para móviles */
             .month-card-wrapper {
-                padding: 20px; /* Reducir padding de la tarjeta */
-                max-width: 100%; /* Asegura que ocupe todo el ancho disponible en el contenedor */
-                min-height: 280px; /* Altura mínima para que no se achique demasiado */
-                border-width: 4px; /* Reducir el grosor del borde superior */
+                padding: 20px;
+                max-width: 100%;
+                min-height: 280px;
+                border-width: 4px;
+                margin: 0 5px;
+                /* Reducir el margen entre la tarjeta y los botones para aprovechar el espacio */
             }
 
             .month-card-wrapper h3 {
-                font-size: 1.8em; /* Reducir tamaño del título del mes */
+                font-size: 1.8em;
                 margin-bottom: 10px;
             }
 
             .month-card-wrapper p {
-                font-size: 0.95em; /* Reducir tamaño del texto de la descripción */
+                font-size: 0.95em;
             }
         }
 
         /* Estilos para pantallas muy pequeñas (ej. iPhone SE, ancho < 480px) */
         @media (max-width: 480px) {
             .surprise-header h2 {
-                font-size: 2em; /* Más reducción */
+                font-size: 2em;
             }
 
             .surprise-header p {
-                font-size: 0.9em; /* Más reducción */
+                font-size: 0.9em;
             }
 
             .nav-button {
-                width: 35px; /* Más reducción del botón */
+                width: 35px;
                 height: 35px;
-                font-size: 1.5em; /* Más reducción de la flecha */
-                left: -10px; /* Aún más pegados */
-                right: -10px;
+                font-size: 1.5em;
+                /* Mantener left/right a 0px para que no se superpongan */
+                left: 0px;
+                right: 0px;
+            }
+
+            .prev-button {
+                left: 0px;
+                right: auto;
+            }
+
+            .next-button {
+                right: 0px;
+                left: auto;
             }
 
             .month-card-wrapper {
-                padding: 15px; /* Más reducción del padding de la tarjeta */
-                min-height: 250px; /* Altura mínima para pantallas muy pequeñas */
+                padding: 15px;
+                min-height: 250px;
+                margin: 0 3px;
+                /* Margen aún más pequeño para pantallas muy estrechas */
             }
 
             .month-card-wrapper h3 {
-                font-size: 1.6em; /* Más reducción */
+                font-size: 1.6em;
             }
 
             .month-card-wrapper p {
-                font-size: 0.85em; /* Más reducción */
+                font-size: 0.85em;
             }
         }
     </style>
